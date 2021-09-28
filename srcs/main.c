@@ -2,14 +2,14 @@
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
-/*
+
 static	int	check_arg(int argc, char **arg)
 {
 	int		i;
 	int		j;
 
 	i = 0;
-	if (argc < 2 || argc > 4)
+	if (argc < 2 || argc > 5)
 		return (aie("Wrong number of arguments"));
 	while (arg[i])
 	{
@@ -26,45 +26,6 @@ static	int	check_arg(int argc, char **arg)
 	}
 	return (0);
 }
-*/
-
-void	*func1(void *arg)
-{
-	int	i;
-	char	str[] = "hello world !";
-
-	(void)arg;
-	i = 0;
-	pthread_cond_wait(&cond, &mutex);
-	while (i < 13)
-	{
-
-		fprintf(stderr, "%c", str[i]);
-		usleep(100000);
-		i++;
-	}
-	fprintf(stderr, "\n");
-	fprintf(stderr, "end 1\n");
-	pthread_exit(NULL);
-}
-void	*func2(void *arg)
-{
-	int	i;
-	char	str[] = "goodbye hell!";
-
-	(void)arg;
-	i = 0;
-	while (i < 13)
-	{
-		fprintf(stderr, "%c", str[i]);
-		usleep(100000);
-		i++;
-	}
-	fprintf(stderr, "\n");
-	fprintf(stderr, "end 2\n");
-	pthread_cond_signal(&cond);
-	pthread_exit(NULL);
-}
 
 int		main(int argc, char **argv)
 {
@@ -73,15 +34,6 @@ int		main(int argc, char **argv)
 	(void)argc;
 	(void)argv;
 	ft_bzero(&env, sizeof(t_env *));
-	pthread_t	t1;
-	pthread_t	t2;
-
-	pthread_create(&t1, NULL, func1, NULL);
-	pthread_create(&t2, NULL, func2, NULL);
-		
-	pthread_join(t1, NULL);
-	pthread_join(t2, NULL);
-	/*
 	if (check_arg(argc, argv + 1))
 		return (1);
 	if (get_arg(&env, argv + 1))
@@ -89,7 +41,7 @@ int		main(int argc, char **argv)
 		aie("Can't get data's arguments");
 		return (1);
 	}
-	*/
+	launch_philo(&env);
 
 	return (0);
 }

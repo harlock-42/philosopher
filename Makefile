@@ -6,7 +6,7 @@
 #    By: tallaire <tallaire@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/16 10:45:35 by tallaire          #+#    #+#              #
-#    Updated: 2021/09/27 16:24:41 by tallaire         ###   ########.fr        #
+#    Updated: 2021/09/28 16:18:59 by tallaire         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,14 +36,17 @@ CFLAGS	=	-Werror -Wextra -Wall -c -g3
 TFLAGS	=	-lpthread
 
 SRC		+=	aie.c
+SRC		+=	display_act.c
 SRC		+=	ft_atoi.c
 SRC		+=	ft_bzero.c
+SRC		+=	ft_putnbr_fd.c
 SRC		+=	ft_strcmp.c
 SRC		+=	ft_strdup.c
 SRC		+=	ft_strjoin.c
 SRC		+=	ft_strlen.c
 SRC		+=	get_arg.c
 SRC		+=	is_uintovf.c
+SRC		+=	launch_philo.c
 SRC		+=	lst_add_back.c
 SRC		+=	lst_add_front.c
 SRC		+=	lst_dup.c

@@ -1,41 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tallaire <tallaire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 18:21:44 by tallaire          #+#    #+#             */
-/*   Updated: 2021/09/28 18:02:40 by tallaire         ###   ########.fr       */
+/*   Created: 2019/12/02 17:33:56 by tallaire          #+#    #+#             */
+/*   Updated: 2021/09/28 16:24:07 by tallaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_H
-# define STRUCT_H
+#include "philo.h"
 
-enum		e_bool
+static	void	ft_putchar_fd(char c, int fd)
 {
-	YES = 0,
-	NO
-};
+	write(fd, &c, 1);
+}
 
-typedef	struct	s_philo
+void	ft_putnbr_fd(long int n, int fd)
 {
-	int			p_id;
-	pthread_t	t_id;
-}				t_philo;
-
-typedef	struct	s_env
-{
-	unsigned long int	start_time;
-	pthread_mutex_t		m_write;
-	unsigned int		nb_philo;
-	unsigned int		time_to_die;
-	unsigned int		time_to_eat;
-	unsigned int		time_to_sleep;
-	int					p_id;
-	pthread_t			*t_id;
-	t_philo				*philo;
-}				t_env;
-
-#endif
+	if (n < 0)
+	{
+		n *= (-1);
+		ft_putchar_fd('-', fd);
+	}
+	if (n >= 10)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
+	}
+	else
+	{
+		ft_putchar_fd(n + '0', fd);
+	}
+}

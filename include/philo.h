@@ -6,7 +6,7 @@
 /*   By: tallaire <tallaire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 12:28:11 by tallaire          #+#    #+#             */
-/*   Updated: 2021/09/27 16:22:05 by tallaire         ###   ########.fr       */
+/*   Updated: 2021/09/28 16:21:11 by tallaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <pthread.h>
+# include <sys/time.h>
 # include "./color.h"
 # include "./list.h"
 # include "./struct.h"
@@ -25,7 +26,12 @@
 ** SRCS
 */
 
-int		get_arg(t_env *env, char **arg);
+void		dis_eat(t_env *env);
+void		dis_sleep(t_env *env);
+void		dis_think(t_env *env);
+int			get_arg(t_env *env, char **arg);
+long int	get_time(void);
+int			launch_philo(t_env *env);
 
 /*
 ** UTILS
@@ -40,5 +46,6 @@ char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *str);
 int		is_uintovf(char *str);
+void	ft_putnbr_fd(long int n, int fd);
 
 #endif
