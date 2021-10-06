@@ -9,7 +9,8 @@ int	is_uintovf(char *str)
 	diff = 0;
 	if (size > 10)
 		return (YES);
-	diff = ft_strcmp(str, "4294967295");
+	if (size == 10)
+		diff = ft_strcmp(str, "4294967295");
 	if (diff > 0)
 		return (YES);
 	return (NO);

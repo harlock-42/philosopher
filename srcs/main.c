@@ -9,7 +9,7 @@ static	int	check_arg(int argc, char **arg)
 	int		j;
 
 	i = 0;
-	if (argc < 2 || argc > 5)
+	if (argc < 4 || argc > 6)
 		return (aie("Wrong number of arguments"));
 	while (arg[i])
 	{
