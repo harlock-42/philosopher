@@ -1,9 +1,9 @@
 #include "philo.h"
 
-long int	get_time(void)
+unsigned long int	get_time(void)
 {
-	struct		timeval	tv;
-	long	int			time;
+	struct						timeval	tv;
+	unsigned long	int			time;
 
 	gettimeofday(&tv, NULL);
 	time = tv.tv_sec * 1000;
