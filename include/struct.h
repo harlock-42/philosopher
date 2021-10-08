@@ -6,7 +6,7 @@
 /*   By: tallaire <tallaire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 18:21:44 by tallaire          #+#    #+#             */
-/*   Updated: 2021/10/07 16:27:28 by tallaire         ###   ########.fr       */
+/*   Updated: 2021/10/08 12:51:05 by tallaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef	struct	s_env
 	pthread_mutex_t			m_write;
 	pthread_mutex_t			*fork;
 	unsigned int			nb_philo;
-	unsigned long int		time_to_die;
+	long long int			time_to_die;
 	unsigned int			time_to_eat;
 	unsigned int			time_to_sleep;
 	unsigned int			nb_meal;
@@ -37,11 +37,11 @@ typedef	struct	s_env
 
 typedef	struct	s_philo
 {
-	unsigned long int	start_time;
+	long long int		start_time;
 	int					p_id;
 	int					has_eaten;
-	long 	int			last_meal;
-	unsigned	int		nb_eat;
+	long long int		last_meal;
+	unsigned int		nb_eat;
 	pthread_t			t_id;
 	t_env			*env;
 }				t_philo;

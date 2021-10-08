@@ -6,7 +6,7 @@
 /*   By: tallaire <tallaire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 12:28:11 by tallaire          #+#    #+#             */
-/*   Updated: 2021/10/07 18:27:47 by tallaire         ###   ########.fr       */
+/*   Updated: 2021/10/08 12:41:31 by tallaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ size_t				ft_strlen(const char *str);
 int					is_uintovf(char *str);
 void				ft_usleep(long int time);
 void				ft_putnbr_fd(long int n, int fd);
-unsigned long int	get_time(void);
+long long int		get_time(void);
 
 #endif

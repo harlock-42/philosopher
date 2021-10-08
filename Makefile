@@ -6,7 +6,7 @@
 #    By: tallaire <tallaire@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/16 10:45:35 by tallaire          #+#    #+#              #
-#    Updated: 2021/10/06 18:14:17 by tallaire         ###   ########.fr        #
+#    Updated: 2021/10/08 14:25:31 by tallaire         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRC		+=	ft_strdup.c
 SRC		+=	ft_strjoin.c
 SRC		+=	ft_strlen.c
 SRC		+=	ft_usleep.c
+SRC		+=	free_env.c
 SRC		+=	get_arg.c
 SRC		+=	get_time.c
 SRC		+=	is_uintovf.c

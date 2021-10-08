@@ -1,7 +1,15 @@
 #include "philo.h"
 
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
+static	int	init_env(t_env *env)
+{
+	env->is_dead = 0;
+	env->nb_feed = 0;
+	env->is_all_created = 0;
+	env->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * env->nb_philo);
+	if (env->fork == NULL)
+		return (-1);
+	return (0);
+}
 
 static	int	check_arg(int argc, char **arg)
 {
@@ -41,6 +49,8 @@ int		main(int argc, char **argv)
 		aie("Can't get data's arguments");
 		return (1);
 	}
+	if (init_env(&env))
+		return (1);
 	launch_philo(&env);
 
 	return (0);
