@@ -4,10 +4,12 @@ static	int	init_env(t_env *env)
 {
 	env->is_dead = 0;
 	env->nb_feed = 0;
+	env->start_time = 0;
 	env->is_all_created = 0;
 	env->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * env->nb_philo);
 	if (env->fork == NULL)
 		return (-1);
+	env->philo = init_philo(env);
 	return (0);
 }
 
