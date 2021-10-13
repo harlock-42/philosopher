@@ -13,7 +13,7 @@ static	void	philo_is_dead(t_env *env)
 				++env->nb_feed;
 			if (env->nb_meal <= env->nb_feed)
 				break ;
-			if (get_time() - env->philo[i].last_meal >= env->time_to_die)
+			if ( env->philo[i].last_meal != 0 && get_time() - env->philo[i].last_meal >= env->time_to_die)
 			{
 				pthread_mutex_lock(&env->m_write);
 				dis_death(&env->philo[i]);
@@ -48,11 +48,10 @@ void	*routine(void *arg)
 	philo = arg;
 	unsigned int		fork;
 
-//	while (philo->env->is_all_created == 0)
-//		ft_usleep(100);
-	philo->start_time = get_time();
+	while (philo->env->start_time == 0)
+		ft_usleep(100);
 	if (philo->p_id % 2 == 0 && philo->env->philo[philo->p_id + 1].has_eaten == 0)
-		ft_usleep(10);
+		ft_usleep(5000);
 	while (philo->env->is_dead == 0)
 	{
 		fork = take_fork(philo);
@@ -78,22 +77,18 @@ int	launch_philo(t_env *env)
 	unsigned int	i;
 
 	i = 0;
-	env->philo = init_philo(env);
-	if (env->philo == NULL)
-		return (-1);
 	while (i < env->nb_philo)
 	{
 		pthread_create(&env->philo[i].t_id, NULL, routine, &(env->philo[i]));
 		++i;
 	}
-	env->is_all_created = 1;
+	env->start_time = get_time();
 	philo_is_dead(env);
 	i = 0;
 	ft_usleep(1000);
 	while (i < env->nb_philo)
 	{
 		pthread_join(env->philo[i].t_id, NULL);
-		pthread_detach(env->philo[i].t_id);
 		++i;
 	}
 	return (0);

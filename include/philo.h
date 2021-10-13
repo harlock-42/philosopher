@@ -33,7 +33,7 @@ void				dis_take_fork(t_philo *philo);
 void				dis_think(t_philo *philo);
 int					get_arg(t_env *env, char **arg);
 int					launch_philo(t_env *env);
-t_philo				*init_philo(t_env *env);
+void				init_philo(t_env *env);
 
 /*
 ** UTILS

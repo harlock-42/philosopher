@@ -6,10 +6,7 @@ static	int	init_env(t_env *env)
 	env->nb_feed = 0;
 	env->start_time = 0;
 	env->is_all_created = 0;
-	env->fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * env->nb_philo);
-	if (env->fork == NULL)
-		return (-1);
-	env->philo = init_philo(env);
+	init_philo(env);
 	return (0);
 }
 
@@ -41,8 +38,6 @@ int		main(int argc, char **argv)
 {
 	t_env	env;
 
-	(void)argc;
-	(void)argv;
 	ft_bzero(&env, sizeof(t_env *));
 	if (check_arg(argc, argv + 1))
 		return (1);
@@ -54,6 +49,5 @@ int		main(int argc, char **argv)
 	if (init_env(&env))
 		return (1);
 	launch_philo(&env);
-
 	return (0);
 }

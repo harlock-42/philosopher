@@ -8,7 +8,7 @@ void	dis_eat(t_philo *philo)
 	int				index;
 
 	index = 0;
-	time = get_time() - philo->start_time;
+	time = get_time() - philo->env->start_time;
 	ft_putnbr_fd(time, 1);
 	write(1, " ", 1);
 	write(1, PURPLE, ft_strlen(PURPLE));
@@ -25,7 +25,7 @@ void	dis_think(t_philo *philo)
 	pthread_mutex_lock(&philo->env->m_write);
 	long long	int	time;
 
-	time = get_time() - philo->start_time;
+	time = get_time() - philo->env->start_time;
 	ft_putnbr_fd(time, 1);
 	write(1, " ", 1);
 	write(1, PURPLE, ft_strlen(PURPLE));
@@ -43,7 +43,7 @@ void	dis_sleep(t_philo *philo)
 
 	long long	int	time;
 
-	time = get_time() - philo->start_time;
+	time = get_time() - philo->env->start_time;
 	ft_putnbr_fd(time, 1);
 	write(1, " ", 1);
 	write(1, PURPLE, ft_strlen(PURPLE));
@@ -61,7 +61,7 @@ void	dis_take_fork(t_philo *philo)
 
 	long long	int	time;
 
-	time = get_time() - philo->start_time;
+	time = get_time() - philo->env->start_time;
 	ft_putnbr_fd(time, 1);
 	write(1, " ", 1);
 	write(1, PURPLE, ft_strlen(PURPLE));
@@ -77,7 +77,7 @@ void	dis_death(t_philo *philo)
 {
 	long long	int	time;
 
-	time = get_time() - philo->start_time;
+	time = get_time() - philo->env->start_time;
 	ft_putnbr_fd(time, 1);
 	write(1, " ", 1);
 	write(1, PURPLE, ft_strlen(PURPLE));
