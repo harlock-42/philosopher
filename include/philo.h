@@ -43,6 +43,8 @@ int					aie(char *str);
 int					where_is_c(char c, char *str);
 int					ft_atoi(const char *str);
 void				ft_bzero(void *s, size_t n);
+char				*ft_itoa(long long int n);
+char				*ft_strcat(char *dst, char *src);
 int					ft_strcmp(char *s1, char *s2);
 char				*ft_strdup(const char *s1);
 char				*ft_strjoin(char const *s1, char const *s2);

@@ -1,91 +1,89 @@
 #include "philo.h"
 
-static	void	philo_is_dead(t_env *env)
+static	void	check_death(t_env *env)
 {
-	unsigned int		i;
+	unsigned	int		i;
+	long long int time;
+	t_philo		*philo;
 
-	while (env->is_dead != 1 && env->nb_meal > env->nb_feed)
+	philo = env->philo;
+	while (env->start_time == 0)
+		usleep(10);
+	while (env->is_dead == 0)
 	{
 		i = 0;
-		while (i < env->nb_philo && env->is_dead != 1 && env->nb_meal > env->nb_feed)
+		while (env->is_dead == 0 && i < env->nb_philo)
 		{
-			if (env->philo[i].nb_eat >= env->nb_meal)
-				++env->nb_feed;
-			if (env->nb_meal <= env->nb_feed)
-				break ;
-			if ( env->philo[i].last_meal != 0 && get_time() - env->philo[i].last_meal >= env->time_to_die)
+			if ((time = get_time() - philo[i].last_meal) >= env->time_to_die)
 			{
-				pthread_mutex_lock(&env->m_write);
-				dis_death(&env->philo[i]);
+				pthread_mutex_lock(&(env->m_write));
+				dis_death(philo);
 				env->is_dead = 1;
+				pthread_mutex_unlock(&(env->m_write));
 			}
 			++i;
+			usleep(10);
 		}
 	}
 }
 
-static unsigned int	take_fork(t_philo *philo)
+static	void	dinner(t_philo *philo)
 {
-	unsigned int		fork;
+	t_env *env;
 
-	fork = philo->p_id;
-	pthread_mutex_lock(&(philo->env->fork[philo->p_id]));
+	env = philo->env;
+	pthread_mutex_lock(&(env->fork[philo->l_fork]));
 	dis_take_fork(philo);
-	fork = philo->p_id;
-	if (fork + 1 >= philo->env->nb_philo)
-		fork = 0;
-	else
-		fork += 1;
-	pthread_mutex_lock(&(philo->env->fork[fork]));
+	pthread_mutex_lock(&(env->fork[philo->r_fork]));
 	dis_take_fork(philo);
-	return (fork);
+	philo->last_meal = get_time();
+	dis_eat(philo);
+	ft_usleep(env->time_to_eat);
+	pthread_mutex_unlock(&(env->fork[philo->l_fork]));
+	pthread_mutex_unlock(&(env->fork[philo->r_fork]));
 }
 
 void	*routine(void *arg)
 {
-	t_philo		*philo;
+	t_philo 		*philo;
+	t_env			*env;
 
-	philo = arg;
-	unsigned int		fork;
-
-	while (philo->env->start_time == 0)
-		ft_usleep(100);
-	if (philo->p_id % 2 == 0 && philo->env->philo[philo->p_id + 1].has_eaten == 0)
-		ft_usleep(5000);
-	while (philo->env->is_dead == 0)
+	philo = (t_philo *)arg;
+	env = philo->env;
+	while (philo->env->is_all_created == 0)
+		usleep(10);
+	philo->last_meal = get_time();
+	if (philo->p_id % 2 == 1)
+		usleep(10000);
+	while (env->is_dead == 0)
 	{
-		fork = take_fork(philo);
-		dis_eat(philo);
-		philo->last_meal = get_time();
-		ft_usleep(philo->env->time_to_eat);
-		++philo->nb_eat;
-		philo->has_eaten = 1;
-		pthread_mutex_unlock(&(philo->env->fork[philo->p_id]));
-		pthread_mutex_unlock(&(philo->env->fork[fork]));
-		if (philo->nb_eat >= philo->env->nb_meal)
-			break ;
-		dis_sleep(philo);
-		ft_usleep(philo->env->time_to_sleep);
-		dis_think(philo);
-		usleep(200);
+		if (env->is_dead == 0)
+			dinner(philo);
+		if (env->is_dead == 0)
+			dis_sleep(philo);
+		ft_usleep(env->time_to_sleep);
+		if (env->is_dead == 0)
+			dis_think(philo);
 	}
-	return (NULL);
+	pthread_exit(arg);
 }
 
 int	launch_philo(t_env *env)
 {
-	unsigned int	i;
+	unsigned int			i;
 
 	i = 0;
 	while (i < env->nb_philo)
 	{
-		pthread_create(&env->philo[i].t_id, NULL, routine, &(env->philo[i]));
+		pthread_create(&(env->philo[i].t_id), NULL, routine, &(env->philo[i]));
 		++i;
 	}
 	env->start_time = get_time();
-	philo_is_dead(env);
+	env->is_all_created = 1;
 	i = 0;
-	ft_usleep(1000);
+	usleep(1000);
+	check_death(env);
+	pthread_mutex_unlock(&(env->m_write));
 	while (i < env->nb_philo)
 	{
 		pthread_join(env->philo[i].t_id, NULL);

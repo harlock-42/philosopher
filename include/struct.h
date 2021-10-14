@@ -25,8 +25,8 @@ typedef	struct	s_philo
 	int					has_eaten;
 	long long int		last_meal;
 	long long int		start_time;
-	unsigned int		l_fork;
-	unsigned int		r_fork;
+	int					l_fork;
+	int					r_fork;
 	unsigned int		nb_eat;
 	pthread_t			t_id;
 	struct s_env		*env;
@@ -34,6 +34,7 @@ typedef	struct	s_philo
 
 typedef	struct	s_env
 {
+	pthread_mutex_t			is_mealed;
 	pthread_mutex_t			m_write;
 	pthread_mutex_t			fork[200];
 	unsigned int			nb_philo;
