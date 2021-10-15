@@ -9,6 +9,8 @@ static	void	check_death(t_env *env)
 	philo = env->philo;
 	while (env->start_time == 0)
 		usleep(10);
+	if (philo->p_id % 2 == 0)
+		ft_usleep(10);
 	while (env->is_dead == 0)
 	{
 		i = 0;
@@ -17,7 +19,7 @@ static	void	check_death(t_env *env)
 			if ((time = get_time() - philo[i].last_meal) >= env->time_to_die)
 			{
 				pthread_mutex_lock(&(env->m_write));
-				dis_death(philo);
+				dis_death(philo, philo[i].p_id);
 				env->is_dead = 1;
 				pthread_mutex_unlock(&(env->m_write));
 			}

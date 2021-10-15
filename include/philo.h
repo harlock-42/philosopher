@@ -26,7 +26,7 @@
 ** SRCS
 */
 
-void				dis_death(t_philo *philo);
+void				dis_death(t_philo *philo, int id);
 void				dis_eat(t_philo *philo);
 void				dis_sleep(t_philo *philo);
 void				dis_take_fork(t_philo *philo);
