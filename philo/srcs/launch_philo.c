@@ -6,7 +6,7 @@
 /*   By: tallaire <tallaire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 13:53:54 by tallaire          #+#    #+#             */
-/*   Updated: 2021/10/15 17:26:17 by tallaire         ###   ########.fr       */
+/*   Updated: 2021/10/20 13:59:01 by tallaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,9 @@ int	launch_philo(t_env *env)
 	check_death(env);
 	while (i < env->nb_philo)
 	{
-		pthread_join(env->philo[i].t_id, NULL);
+		if (pthread_join(env->philo[i].t_id, NULL))
+			return (clean(env, -1));
 		++i;
 	}
-	return (0);
+	return (clean(env, 0));
 }

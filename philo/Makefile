@@ -37,6 +37,7 @@ TFLAGS	=	-lpthread
 
 SRC		+=	aie.c
 SRC		+=	display_act.c
+SRC		+=	clean.c
 SRC		+=	ft_atoi.c
 SRC		+=	ft_bzero.c
 SRC		+=	ft_itoa.c
