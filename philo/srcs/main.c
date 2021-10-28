@@ -6,7 +6,7 @@
 /*   By: tallaire <tallaire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 13:53:41 by tallaire          #+#    #+#             */
-/*   Updated: 2021/10/15 18:24:18 by tallaire         ###   ########.fr       */
+/*   Updated: 2021/10/28 16:32:22 by tallaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static	int	check_arg(int argc, char **arg)
 	int		j;
 
 	i = 0;
-	if (argc < 4 || argc > 6)
+	if (argc <= 4 || argc > 6)
 		return (aie("Wrong number of arguments"));
 	while (arg[i])
 	{

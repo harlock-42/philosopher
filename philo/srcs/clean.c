@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clean.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tallaire <tallaire@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/28 16:13:45 by tallaire          #+#    #+#             */
+/*   Updated: 2021/10/28 16:13:45 by tallaire         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int	clean(t_env *env, int ret)
@@ -5,10 +17,13 @@ int	clean(t_env *env, int ret)
 	unsigned int	i;
 
 	i = 0;
-	while (i < env->nb_philo)
+	if (ret != 0)
 	{
-		pthread_detach(env->philo[i].t_id);
-		++i;
+		while (i < env->nb_philo)
+		{
+			pthread_detach(env->philo[i].t_id);
+			++i;
+		}
 	}
 	i = 0;
 	while (i < env->nb_philo)

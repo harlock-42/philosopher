@@ -6,7 +6,7 @@
 #    By: tallaire <tallaire@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/16 10:45:35 by tallaire          #+#    #+#              #
-#    Updated: 2021/10/15 13:34:36 by tallaire         ###   ########.fr        #
+#    Updated: 2021/10/28 16:17:20 by tallaire         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,8 @@ CP	=	cp -r
 CFLAGS	=	-Werror -Wextra -Wall -c -g3
 
 TFLAGS	=	-lpthread
+
+FSAN	=	#-fsanitize=thread
 
 SRC		+=	aie.c
 SRC		+=	display_act.c
@@ -88,10 +90,10 @@ HEADER		=	$(addprefix $(HEADER_PATH)/, $(HEADER_NAME))
 all: $(NAME)
 
 $(NAME): $(OBJ_PATH) $(OBJ)
-	@$(CC) -I$(HEADER_PATH)/ $(TFLAGS) -o $(NAME) $(OBJ)
+	@$(CC) -I$(HEADER_PATH)/ $(TFLAGS) $(FSAN) -o $(NAME) $(OBJ)
 
 $(OBJ): $(OBJ_PATH)%.o: %.c $(HEADER)
-	@$(CC) -I$(HEADER_PATH)/ $(CFLAGS) $< -o $@
+	@$(CC) -I$(HEADER_PATH)/ $(CFLAGS) $(FSAN) $< -o $@
 
 $(OBJ_PATH):
 	@mkdir $(OBJ_PATH)

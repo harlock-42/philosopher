@@ -6,7 +6,7 @@
 /*   By: tallaire <tallaire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 13:59:11 by tallaire          #+#    #+#             */
-/*   Updated: 2021/10/15 17:27:20 by tallaire         ###   ########.fr       */
+/*   Updated: 2021/10/28 16:29:41 by tallaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	dis_eat(t_philo *philo)
 
 	env = philo->env;
 	pthread_mutex_lock(&(env->m_write));
-	if (env->is_dead == 0 && philo->nb_eat <= env->nb_meal)
+	if (philo->nb_eat <= env->nb_meal)
 	{
 		time = get_time() - env->start_time;
 		ft_putnbr_fd(time, 1);
@@ -37,14 +37,11 @@ void	dis_think(t_philo *philo)
 
 	env = philo->env;
 	pthread_mutex_lock(&(env->m_write));
-	if (env->is_dead == 0)
-	{
-		time = get_time() - env->start_time;
-		ft_putnbr_fd(time, 1);
-		write(1, " ", 1);
-		ft_putnbr_fd(philo->p_id + 1, 1);
-		write(1, " is thinking\n", 13);
-	}
+	time = get_time() - env->start_time;
+	ft_putnbr_fd(time, 1);
+	write(1, " ", 1);
+	ft_putnbr_fd(philo->p_id + 1, 1);
+	write(1, " is thinking\n", 13);
 	pthread_mutex_unlock(&(env->m_write));
 }
 
@@ -55,14 +52,11 @@ void	dis_sleep(t_philo *philo)
 
 	env = philo->env;
 	pthread_mutex_lock(&(env->m_write));
-	if (env->is_dead == 0)
-	{
-		time = get_time() - env->start_time;
-		ft_putnbr_fd(time, 1);
-		write(1, " ", 1);
-		ft_putnbr_fd(philo->p_id + 1, 1);
-		write(1, " is sleeping\n", 13);
-	}
+	time = get_time() - env->start_time;
+	ft_putnbr_fd(time, 1);
+	write(1, " ", 1);
+	ft_putnbr_fd(philo->p_id + 1, 1);
+	write(1, " is sleeping\n", 13);
 	pthread_mutex_unlock(&(env->m_write));
 }
 
@@ -73,7 +67,7 @@ void	dis_take_fork(t_philo *philo)
 
 	env = philo->env;
 	pthread_mutex_lock(&(env->m_write));
-	if (env->is_dead == 0 && philo->nb_eat <= env->nb_meal)
+	if (philo->nb_eat <= env->nb_meal)
 	{
 		time = get_time() - env->start_time;
 		ft_putnbr_fd(time, 1);
@@ -90,6 +84,7 @@ void	dis_death(t_philo *philo, int id)
 	t_env			*env;
 
 	env = philo->env;
+	pthread_mutex_lock(&(env->m_write));
 	time = get_time() - env->start_time;
 	ft_putnbr_fd(time, 1);
 	write(1, " ", 1);
