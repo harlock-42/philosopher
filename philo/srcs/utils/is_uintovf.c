@@ -6,7 +6,7 @@
 /*   By: tallaire <tallaire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 13:33:06 by tallaire          #+#    #+#             */
-/*   Updated: 2021/10/15 13:33:07 by tallaire         ###   ########.fr       */
+/*   Updated: 2021/11/03 14:02:39 by tallaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,12 @@ int	is_uintovf(char *str)
 {
 	int		size;
 	int		diff;
+	int		i;
 
-	size = ft_strlen(str);
+	i = 0;
+	while (str[i] == '0')
+		++i;
+	size = ft_strlen(str) - i;
 	diff = 0;
 	if (size > 10)
 		return (YES);

@@ -6,7 +6,7 @@
 /*   By: tallaire <tallaire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 16:13:45 by tallaire          #+#    #+#             */
-/*   Updated: 2021/10/28 16:13:45 by tallaire         ###   ########.fr       */
+/*   Updated: 2021/11/02 17:26:09 by tallaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	clean(t_env *env, int ret)
 		}
 	}
 	i = 0;
+	usleep(500000);
 	while (i < env->nb_philo)
 	{
 		pthread_mutex_destroy(&(env->fork[i]));

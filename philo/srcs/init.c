@@ -6,13 +6,33 @@
 /*   By: tallaire <tallaire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 13:56:13 by tallaire          #+#    #+#             */
-/*   Updated: 2021/10/28 11:24:43 by tallaire         ###   ########.fr       */
+/*   Updated: 2021/11/03 14:37:48 by tallaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	init_philo(t_env *env)
+static	int	init_mutex_philo(t_env *env, int i)
+{
+	if (pthread_mutex_init(&(env->philo[i].m_last_meal), NULL))
+		return (-1);
+	if (pthread_mutex_init(&(env->philo[i].m_nb_meal), NULL))
+		return (-1);
+	if (pthread_mutex_init(&(env->philo[i].m_undertaker), NULL))
+		return (-1);
+	return (0);
+}
+
+static	int	init_mutex_env(t_env *env)
+{
+	if (pthread_mutex_init(&env->m_write, NULL))
+		return (-1);
+	if (pthread_mutex_init(&env->is_mealed, NULL))
+		return (-1);
+	return (0);
+}
+
+int	init_philo(t_env *env)
 {
 	unsigned int	i;
 
@@ -25,15 +45,18 @@ void	init_philo(t_env *env)
 		env->philo[i].nb_eat = 0;
 		env->philo[i].has_eaten = 0;
 		env->philo[i].is_feed = 0;
-		pthread_mutex_init(&(env->fork[i]), NULL);
-		pthread_mutex_init(&(env->philo[i].m_last_meal), NULL);
-		pthread_mutex_init(&(env->philo[i].m_nb_meal), NULL);
-		pthread_mutex_init(&(env->philo[i].m_undertaker), NULL);
+		if (pthread_mutex_init(&(env->fork[i]), NULL))
+			return (-1);
+		if (init_mutex_philo(env, i))
+			return (-1);
 		env->philo[i].l_fork = i;
-		env->philo[i].r_fork = i + 1 % env->nb_philo;
+		if (i == env->nb_philo - 1)
+			env->philo[i].r_fork = 0;
+		else
+			env->philo[i].r_fork = i + 1;
 		++i;
 	}
-	pthread_mutex_init(&env->m_write, NULL);
-	pthread_mutex_init(&env->is_mealed, NULL);
-	pthread_mutex_init(&(env->m_undertaker), NULL);
+	if (init_mutex_env(env))
+		return (-1);
+	return (0);
 }

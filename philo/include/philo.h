@@ -6,7 +6,7 @@
 /*   By: tallaire <tallaire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 12:28:11 by tallaire          #+#    #+#             */
-/*   Updated: 2021/10/28 16:29:50 by tallaire         ###   ########.fr       */
+/*   Updated: 2021/11/02 18:15:05 by tallaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void				dis_think(t_philo *philo);
 int					clean(t_env *env, int ret);
 int					get_arg(t_env *env, char **arg);
 int					launch_philo(t_env *env);
-void				init_philo(t_env *env);
+int					init_philo(t_env *env);
 
 /*
 ** UTILS

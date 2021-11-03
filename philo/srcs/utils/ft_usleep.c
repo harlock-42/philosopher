@@ -6,7 +6,7 @@
 /*   By: tallaire <tallaire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 13:33:39 by tallaire          #+#    #+#             */
-/*   Updated: 2021/10/15 13:33:48 by tallaire         ###   ########.fr       */
+/*   Updated: 2021/11/02 17:15:53 by tallaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ void	ft_usleep(long int time)
 		i = get_time();
 		if ((i - start) >= time)
 			break ;
-		usleep(50);
+		usleep(200);
 	}
 }

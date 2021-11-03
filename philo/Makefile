@@ -6,7 +6,7 @@
 #    By: tallaire <tallaire@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/16 10:45:35 by tallaire          #+#    #+#              #
-#    Updated: 2021/10/28 16:17:20 by tallaire         ###   ########.fr        #
+#    Updated: 2021/11/03 13:15:05 by tallaire         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,6 @@ C_CYAN		=	\e[1;36m
 C_WHITE		=	\e[1;37m
 C_END		=	\e[0m
 
-
 NAME	=	philo
 
 CC	=	clang
@@ -35,7 +34,7 @@ CFLAGS	=	-Werror -Wextra -Wall -c -g3
 
 TFLAGS	=	-lpthread
 
-FSAN	=	#-fsanitize=thread
+FSAN	=	-fsanitize=address
 
 SRC		+=	aie.c
 SRC		+=	display_act.c

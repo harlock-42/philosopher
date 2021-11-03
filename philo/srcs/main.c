@@ -6,7 +6,7 @@
 /*   By: tallaire <tallaire@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 13:53:41 by tallaire          #+#    #+#             */
-/*   Updated: 2021/10/28 16:32:22 by tallaire         ###   ########.fr       */
+/*   Updated: 2021/11/03 13:59:04 by tallaire         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static	int	init_env(t_env *env)
 	env->nb_feed = 0;
 	env->start_time = 0;
 	env->is_all_created = 0;
-	init_philo(env);
+	if (init_philo(env))
+		return (-1);
 	return (0);
 }
 
@@ -57,7 +58,7 @@ static	int	check_arg(int argc, char **arg)
 				return (aie("Arguments must have only numeric characters"));
 			++j;
 		}
-		if (is_uintovf(arg[0]) == YES)
+		if (is_uintovf(arg[i]) == YES)
 			return (aie("An argument overflow"));
 		++i;
 	}
